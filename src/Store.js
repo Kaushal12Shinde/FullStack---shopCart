@@ -21,11 +21,13 @@
 // export default Store;
 
 import { configureStore , applyMiddleware } from '@reduxjs/toolkit';
-import productsReducer from './Slice/ProductSlice'
+import productsReducer from './Slice/ProductSlice';
+import userReducer from './Slice/UserSlice';
 
 const Store = configureStore({
     reducer:{
-        products : productsReducer
+        products : productsReducer,
+        user : userReducer
     }
 });
 

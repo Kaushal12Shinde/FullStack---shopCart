@@ -20,8 +20,6 @@ const checkAdmin = require('../Middleware/checkAdmin')
 
     router.post('/login',async(req,res,next)=>{
         
-        const {email,password} = req.body;
-        
         const user = await User.findOne({email}).select('+password');
         
         if(!user)

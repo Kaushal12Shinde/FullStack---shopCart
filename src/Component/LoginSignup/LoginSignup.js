@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './LoginSignup.css'
 import { useSelector, useDispatch } from 'react-redux';
+import { userLogin , userRegister } from '../../Slice/UserSlice';
 
 const Login_Signup = () => {
 
@@ -31,10 +32,10 @@ const Login_Signup = () => {
   const handleLogin=(e)=>{
     e.preventDefault();
     if(loginToggle){
-      // dispatch()
+      dispatch(userLogin(credential));
     }
     else{
-      // dispatch()
+      dispatch(userRegister(credential));
     }
   }
 
