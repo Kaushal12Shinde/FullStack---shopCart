@@ -1,0 +1,49 @@
+.Product{
+    width: 200px;
+    height: 300px;
+    transition: 0.3s ease-in;
+    text-decoration: none;
+    color: black;
+    border: 0.1px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
+    &:hover{
+        box-shadow:  0 0 15px rgba(0,0,0,0.15),
+        0 0 20px rgba(255,255,255,0.7);
+    }
+}
+.imgCont{
+    width: 80%;
+    height: 50%;
+    margin: auto;
+    padding-top: 20px;
+}
+.imgCont img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.details{
+    padding:20px 10px;
+    padding-bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+p{
+    font: 400 0.8rem var(--fam);
+    text-align: center;
+}
+h3{
+    font: 500 1rem var(--fam);
+    text-align: center;
+}
+
+.stars{ 
+    gap: 5px;
+}
+.stars > p{
+    align-self: flex-end;
+    padding-bottom: 1px;
+}
+

@@ -1,0 +1,47 @@
+.Navbar{
+    width: 100%;
+    height: 5vh;
+    /* border: 1px solid black; */
+    justify-content: space-between;
+    
+    /* ---chnages--- */
+    /* position: sticky;
+    top: 2%;
+    background-color: white; */
+}
+
+.anchorSec{
+
+}
+
+.anchorSec > a{
+    text-decoration: none;
+    color: black;
+    margin-right: 20px;
+    font: 500 1rem var(--fam);
+    letter-spacing: 0.5px;
+}
+
+.funSec > *{
+    margin-left: 15px;
+}
+
+.funSec > i{
+    cursor: pointer;
+    font-size: 1.05rem;
+}
+
+.searchBox{
+    background-color: #F5F5F5;
+    border-radius: 25px;
+    padding: 5px 10px;
+}
+
+.searchBox input{
+    border: none;
+    outline: none;
+    background-color: #F5F5F5;
+    font: 400 .9rem var(--fam);
+    padding: 0 5px;
+    letter-spacing: 0.5px;
+}

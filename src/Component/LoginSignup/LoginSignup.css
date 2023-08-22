@@ -1,0 +1,58 @@
+.LoginSignup{
+    width: 100%;
+    height: 90vh;
+    display: grid;
+    place-items: center; 
+}
+
+.Form{
+    width: 30%;
+    box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
+    -6px -6px 10px -1px rgba(255,255,255,0.7);
+    border: 0.1px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.toggle{
+    display: flex;
+}
+
+.active{
+    box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
+    -6px -6px 10px -1px rgba(255,255,255,0.7);
+    border: 0.1px solid rgba(0,0,0,0.1);
+}
+
+.toggle h3{
+    width: 50%;
+    padding: 15px 10px;
+    border-top: none;
+    font: 450 1.1rem var(--fam);
+}
+
+.Form form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10% 10%;
+    gap: 20px;
+}
+
+.Form input{
+    padding: 10px;
+    width: 100%;
+    border: 0.1px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
+    font: 400 1rem var(--fam);
+    outline: none;
+}
+
+.Form button{
+    padding: 10px 20px;
+    width: min-content;
+    font: 400 0.9rem var(--fam);
+    background-color: lightblue;
+    border: 0.1px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
