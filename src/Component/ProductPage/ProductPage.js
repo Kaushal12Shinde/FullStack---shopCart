@@ -1,7 +1,7 @@
 import React,{useEffect ,Fragment} from 'react'
 import { getProductDetails } from '../../Slice/ProductSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import Loader from '../Loader/Loader'
+import Loader from '../../StyleComponent/Loader/Loader';
 import { useParams } from 'react-router-dom';
 import Carousel from 'nuka-carousel';
 import './ProductPage.css'

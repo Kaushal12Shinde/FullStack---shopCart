@@ -1,0 +1,99 @@
+.Account{
+    width: 100%;
+    height: 92vh;
+    display: grid;
+    place-items: center;
+    position: relative;
+}
+
+
+.ActContainer{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.profile{
+    width: 8vmax;
+    background-color: #d2d2d2;
+    border-radius: 50%;
+    box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
+    -6px -6px 10px -1px rgba(255,255,255,0.7);
+    border: 0.1px solid rgba(0,0,0,0.1);
+    margin-bottom: 1.5vh;
+    position: relative;
+}
+
+.fa-pen{
+    position: absolute;
+    right: -40px;
+    bottom: 0;
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.detail h3{
+    font: 500 1.2rem var(--fam);
+}
+.detail p{
+    font: 400 0.9rem var(--fam);
+}
+
+.Access{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.Account i{
+    margin-right: 10px;
+}
+
+.ActContainer button{
+    padding: 0.8rem 1rem;
+    /* margin-right: 20px;
+    margin-bottom: 20px; */
+    border-radius: 10px;
+    box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
+    -6px -6px 10px -1px rgba(255,255,255,0.7);
+    border: 0.1px solid rgba(0,0,0,0.1);
+    font: 450 1rem var(--fam);
+    background-color: white;
+
+    &:hover{
+        cursor: pointer;
+        transition: 0.5s all;
+        letter-spacing: 0.5px;
+        background-color: lightgray;
+    }
+}
+
+.logout{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 0.5rem 0.5rem;
+    font: 500 0.8rem var(--fam);
+    border-radius: 10px;
+    box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
+    -6px -6px 10px -1px rgba(255,255,255,0.7);
+    border: 0.1px solid rgba(0,0,0,0.1);
+    background-color: white;
+    cursor: pointer;
+    &:hover{
+        transition: 0.5s all;
+        letter-spacing: 0.5px;
+    }
+}
+
+@media (max-width:600px){
+    .ActContainer{
+        width: 100%;
+    }
+}

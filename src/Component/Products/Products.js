@@ -3,7 +3,7 @@ import './Products.css'
 import ProductCard from '../ProductCard/ProductCard'
 import { getProducts } from '../../Slice/ProductSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import Loader from '../Loader/Loader';
+import Loader from '../../StyleComponent/Loader/Loader';
 import { useParams } from 'react-router-dom';
 
 const categories = [

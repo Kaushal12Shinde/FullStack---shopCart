@@ -3,6 +3,7 @@ import {Link , useLocation , useNavigate} from 'react-router-dom';
 
 import React ,{useState ,useEffect} from 'react'
 
+
 const Navbar = () => {
 
   const location = useLocation();
@@ -23,17 +24,14 @@ const Navbar = () => {
       }
   
       setTimerId(setTimeout(() => {
+          setKeyword(keyword.trim());
           setHelper(!helper);
       }, 1000));
 
   }
 
   useEffect(()=>{
-    if (keyword.trim()) {
-      navigate(`/products/${keyword}`);
-    }// else {
-    //   navigate("/products");
-    // }
+      navigate(`/products/${keyword}`)
   },[helper])  
 
   const displaySearch = location.pathname.startsWith('/products' || '/products/');
@@ -53,7 +51,7 @@ const Navbar = () => {
             </div>
           }
             
-            <i className="fa-regular fa-user" style={{color:"#000000"}}></i>
+            <Link to={`/account`}><i className="fa-regular fa-user" style={{color:"#000000"}}></i></Link>
             <i className="fa-solid fa-heart" style={{color:"#FF004F"}}></i>
             <i className="fa-brands fa-opencart" style={{color:"#000000"}}></i>
         </div>
