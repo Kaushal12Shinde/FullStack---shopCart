@@ -4,34 +4,40 @@ const router = express.Router();
 const sendToken = require('../Utility/sendToken');
 const authFetch = require('../Middleware/authFetch');
 const ApiFeatures = require('../Utility/ApiFeatures');
-const checkAdmin = require('../Middleware/checkAdmin')
+const checkAdmin = require('../Middleware/checkAdmin');
+const catchAsyncErrors = require('../Middleware/catchAsyncErrors');
 
 
-//ErrorHandling Remaining
+//ErrorHandling Remaining ---- for other functions try catch block or asyncCathc/ check once asyncatch works or not
 
 //1-> 
     
     router.post('/register', async(req,res,next)=>{
-        const user = await User.create(req.body);
-        sendToken(user,201,res);
+        try{
+            const user = await User.create(req.body);
+            sendToken(user,201,res);
+        }catch{
+            return res.status(400).json({message:'User Allready Exist try to Login'});
+        }
     });
 
 //2->
 
-    router.post('/login',async(req,res,next)=>{
-        
-        const user = await User.findOne({email}).select('+password');
-        
-        if(!user)
-            return res.status(400).json({message:'user Not Found'});
-        
-        const hash = await user.compareHash(password);
-        
-        if(!hash)
-            return res.status(500).send("Invalid User Details")
-        
-        sendToken(user,200,res);
-    });
+    router.post('/login', catchAsyncErrors(async(req,res,next)=>{
+            const {email,password} = req.body;
+
+            const user = await User.findOne({email}).select('+password');
+            
+            if(!user)
+                return res.status(400).json({message:'user Not Found'});
+            
+            const hash = await user.compareHash(password);
+            
+            if(!hash)
+                return res.status(500).json({message:"Invalid User Details"});
+            
+            sendToken(user,200,res);
+    }));
 
 //3->
 
@@ -52,6 +58,7 @@ const checkAdmin = require('../Middleware/checkAdmin')
         const user = await User.findByIdAndUpdate(req.userId,req.body,{
             new:true
         });
+        
         res.status(200).json({
             success:true,
             user

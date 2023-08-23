@@ -25,11 +25,16 @@ const Products = () => {
   const dispatch = useDispatch();
   const { loading, error, products , productCount } = useSelector((state) => state.products);
 
+  //...Error Handle/...pages/...raitng/...pricing/...UIFeatures -> pending
+   //...Error Handle/...pages/...raitng/...pricing/...UIFeatures -> pending
+    //...Error Handle/...pages/...raitng/...pricing/...UIFeatures -> pending
+     //...Error Handle/...pages/...raitng/...pricing/...UIFeatures -> pending
+
   useEffect(()=>{
     dispatch(getProducts({keyword , category}));
   },[dispatch,keyword,category]);
 
-  // console.log(products , productCount);
+
   return (
     <div className='Products'>
 
@@ -39,7 +44,7 @@ const Products = () => {
               Select Category
             </option>
             <option value="">All</option>
-            {categories.map((cat)=> <option value={cat}>{cat}</option>)}
+            {categories.map((cat)=> <option key={cat} value={cat}>{cat}</option>)}
           </select>
             {/* <button>Price Range</button>
             <button>Categories</button>

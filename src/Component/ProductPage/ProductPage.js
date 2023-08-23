@@ -15,6 +15,11 @@ const ProductPage = () => {
     const { loading, error , productDetails } = useSelector((state) => state.products);
     const { id } = useParams();
 
+    //In backend AuthFetch i removed think and Attach it if  required
+      //In backend AuthFetch i removed think and Attach it if  required
+        //In backend AuthFetch i removed think and Attach it if  required
+          //In backend AuthFetch i removed think and Attach it if  required
+
     useEffect(()=>{
         console.log(id);
       dispatch(getProductDetails(id));

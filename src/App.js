@@ -1,11 +1,18 @@
+import { useEffect } from 'react';
 import './App.css';
 import LoginSignup from './Component/LoginSignup/LoginSignup';
 import Navbar from './Component/Navbar/Navbar';
 import ProductPage from './Component/ProductPage/ProductPage';
 import Products from './Component/Products/Products';
 import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-
+import { userLoad } from './Slice/UserSlice';
+import Store from './Store';
 function App() {
+
+  useEffect(()=>{
+    Store.dispatch(userLoad());
+  },[])
+
   return (
     <Router>
       <div className="App">

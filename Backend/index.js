@@ -7,10 +7,14 @@ connectToMongo();
 const app = express();
 
 const port = 8080;
+const corsOptions = {
+    origin: 'http://localhost:3000',  // frontend server
+    credentials: true
+};
 
     app.use(express.json());
+    app.use(cors(corsOptions));
     app.use(cookieParser());
-    app.use(cors());
     app.use(errorMiddleware);
 
     app.use('/api/product', require('./routes/product'));

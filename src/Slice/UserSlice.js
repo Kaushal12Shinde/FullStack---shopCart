@@ -10,14 +10,17 @@ export const userLogin = createAsyncThunk('user/userLogin', async( userDetails )
     const config = { headers: { "Content-Type": "application/json" } };
     
     try{
-        const { data } = await axios.post(
+        const response  = await axios.post(
             link,
-            { email, password },
-            config
+            { email, password },{
+                ...config,
+                withCredentials: true
+            }
         )
-        console.log(data);
+        // console.log(response)
+        return response.data.user;
     }catch(error){
-        return new Error(error.response.data.message);
+        throw new Error(error.response.data.message);
     }
 
 });
@@ -29,12 +32,29 @@ export const userRegister = createAsyncThunk('user/userRegister',async(userDetai
     try{
         const response = await axios.post(
             link,
-            userDetails,
-            config
+            userDetails,{
+                ...config,
+                withCredentials: true
+            }
         );
-        console.log(response)
+        return response.data.user; 
     }catch(error){
-        return new Error(error.response.data.message);
+        throw new Error(error.response.data.message);
+    }
+})
+
+
+export const  userLoad = createAsyncThunk('user/userLoader',async()=>{
+
+    let link = `${host}/api/user/myDetails`;
+    try{
+        const response = await axios.get(
+            link,
+            {withCredentials :true},
+        )
+        return response.data.user;
+    }catch(error){
+        throw new Error(error.response.data.message);
     }
 })
 
@@ -43,6 +63,7 @@ const UserSlice = createSlice({
     initialState: {
       user: {},
       loading: false,
+      isAuthenticated:false,
       error: null,
     },
 
@@ -60,29 +81,55 @@ const UserSlice = createSlice({
 
         .addCase(userLogin.pending, (state) => {
           state.loading = true;
+          state.isAuthenticated = false;
         })
         .addCase(userLogin.fulfilled, (state, action) => {
           state.loading = false;
           state.user = action.payload;
+          state.isAuthenticated = true;
         })
         .addCase(userLogin.rejected, (state, action) => {
           state.loading = false;
-          state.error = action.payload;
+          state.error = action.error.message;
+          state.user = {};
+          state.isAuthenticated = false;
         })
 
-    //   -> getProductDetails 
+      //-> userRegister 
 
-    //     .addCase(getProductDetails.pending, (state) => {
-    //       state.loading = true;
-    //     })
-    //     .addCase(getProductDetails.fulfilled, (state, action) => {
-    //       state.loading = false;
-    //       state.productDetails = action.payload.product;
-    //     })
-    //     .addCase(getProductDetails.rejected, (state, action) => {
-    //       state.loading = false;
-    //       state.error = action.error.message;
-    //     });
+        .addCase(userRegister.pending, (state) => {
+          state.loading = true;
+          state.isAuthenticated = false;
+        })
+        .addCase(userRegister.fulfilled, (state, action) => {
+          state.loading = false;
+          state.isAuthenticated = true;
+          state.user = action.payload;
+        })
+        .addCase(userRegister.rejected, (state, action) => {
+          state.loading = false;
+          state.isAuthenticated = false;
+          state.user={};
+          state.error = action.error.message;
+        })
+    
+    //-> userLoad
+
+        .addCase(userLoad.pending, (state) => {
+            state.loading = true;
+            state.isAuthenticated = false;
+        })
+        .addCase(userLoad.fulfilled, (state, action) => {
+            state.loading = false;
+            state.isAuthenticated = true;
+            state.user = action.payload;
+        })
+        .addCase(userLoad.rejected, (state, action) => {
+            state.loading = false;
+            state.isAuthenticated = false;
+            state.user={};
+            state.error = action.error.message;
+        })
     }
   });
   

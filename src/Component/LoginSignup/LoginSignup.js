@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import './LoginSignup.css'
 import { useSelector, useDispatch } from 'react-redux';
-import { userLogin , userRegister } from '../../Slice/UserSlice';
+import { clearErrors, userLogin , userRegister } from '../../Slice/UserSlice';
 
 const Login_Signup = () => {
 
   const [loginToggle, setLoginToggle] = useState(true);
   const [credential,setCredential] = useState({});
   const dispatch = useDispatch();
+  const {user , loading ,error ,isAuthenticated} = useSelector((state) => state.user);
 
   useEffect(()=>{
     if(loginToggle){
@@ -38,6 +39,15 @@ const Login_Signup = () => {
       dispatch(userRegister(credential));
     }
   }
+
+  //Handle navigation to accounts page or prev page where you were brought for login here..
+
+  useEffect(()=>{
+    if(error){
+      alert(error);
+      dispatch(clearErrors);
+    }
+  },[dispatch,error]);
 
   return (
     <div className='LoginSignup' >
