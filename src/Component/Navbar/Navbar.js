@@ -15,6 +15,9 @@ const Navbar = () => {
 
 // <----- Debouncing ----->
 
+
+//handle problem of search
+
   const handleSearch = (e) =>{
       e.preventDefault();
       setKeyword(e.target.value);
@@ -24,15 +27,15 @@ const Navbar = () => {
       }
   
       setTimerId(setTimeout(() => {
-          setKeyword(keyword.trim());
           setHelper(!helper);
       }, 1000));
 
   }
 
   useEffect(()=>{
+    if(keyword.trim())
       navigate(`/products/${keyword}`)
-  },[helper])  
+  },[helper,keyword,navigate])  
 
   const displaySearch = location.pathname.startsWith('/products' || '/products/');
 
@@ -41,7 +44,7 @@ const Navbar = () => {
         <div className="anchorSec">
             <Link to="/login">Home</Link>
             <Link to="/products">Products</Link>
-            <a href="#">About</a>
+            <a href="/about">About</a>
         </div>
         <div className="funSec flexUtil">
           { displaySearch && 

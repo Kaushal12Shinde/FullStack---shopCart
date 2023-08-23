@@ -58,6 +58,21 @@ export const  userLoad = createAsyncThunk('user/userLoader',async()=>{
     }
 })
 
+export const  userLogOut = createAsyncThunk('user/userLogOut',async()=>{
+
+  let link = `${host}/api/user/logout`;
+
+  try{
+      const response = await axios.post(
+          link,
+          {withCredentials :true},
+      )
+      return response.data;
+  }catch(error){
+      throw new Error(error.response.data.message);
+  }
+})
+
 const UserSlice = createSlice({
     name: 'user',
     initialState: {
@@ -70,6 +85,7 @@ const UserSlice = createSlice({
     reducers: {
 
       clearErrors: (state) => {
+        console.log(state.error)
         state.error = null;
       }
 
@@ -130,7 +146,25 @@ const UserSlice = createSlice({
             state.user={};
             state.error = action.error.message;
         })
+    
+    //-> userLogOut    
+
+        .addCase(userLogOut.pending, (state) => {
+          state.loading = true;
+          state.isAuthenticated = false;
+        })
+        .addCase(userLogOut.fulfilled, (state, action) => {
+            state.loading = false;
+            state.user = {};
+            state.isAuthenticated=false;
+        })
+        .addCase(userLogOut.rejected, (state, action) => {
+            state.loading = false;
+            state.isAuthenticated = false;
+            state.error = action.error.message;
+        })
     }
+
   });
   
   export const { clearErrors } = UserSlice.actions;  // Export the regular actions
