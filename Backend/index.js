@@ -12,13 +12,20 @@ const corsOptions = {
     credentials: true
 };
 
+// requires -->
+
     app.use(express.json());
     app.use(cors(corsOptions));
     app.use(cookieParser());
     app.use(errorMiddleware);
 
+// routes -->
+
     app.use('/api/product', require('./routes/product'));
     app.use('/api/user', require('./routes/user'));
+    app.use('/api/order', require('./routes/order'));
+
+//Port -->
 
     app.listen(port,()=>{
         console.log(`Server is running on ${port}`);
