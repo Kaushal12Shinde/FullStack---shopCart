@@ -37,6 +37,15 @@ const UserSchema = new mongoose.Schema({
         }
     },
 
+    wishlist:[
+        {
+            product:{
+                type:mongoose.Types.ObjectId,
+                ref:"Product",
+            },   
+        }
+    ],
+    
     resetPasswordToken:String,
     resetPasswordExpire: Date
 });

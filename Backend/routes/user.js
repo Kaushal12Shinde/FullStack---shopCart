@@ -125,5 +125,46 @@ const catchAsyncErrors = require('../Middleware/catchAsyncErrors');
 
     })
 
+//9 -> watchlist
+
+    router.put('/add-wishlist/:id', authFetch , async(req,res)=>{
+
+        const user = await User.findById(req.userId);
+
+        user.wishlist.push(req.params.id);
+
+        await user.save({validateBeforeSave:false});
+
+        res.status(200).json({
+            success:true,
+            message:'Added'
+        })
+
+    });
+
+    router.delete('/delete-wishlist/:id',authFetch , async(req,res)=>{
+
+        const user = await User.findById(req.userId);
+        console.log('id to be deleted',req.params.id);
+        
+        const wishlist = user.wishlist.filter((pro)=> {
+            return pro._id.toString() !== req.params.id.toString()
+        });
+
+        await User.findByIdAndUpdate(req.userId,{
+            wishlist }
+            ,{
+                new:true, //return modified data
+                runValidators: true,
+                useFindAndModify:false // it uses the method of findOneAndModify
+            }
+        )
+        
+        res.status(200).json({
+            success : true,
+            message:"Removed",
+        })
+    })
+
 
 module.exports = router
