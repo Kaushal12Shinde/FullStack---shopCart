@@ -42,9 +42,9 @@ const ErrorHandler = require('../Utility/ErrorHandler');
         
     });
 
-// 2 --> Get All orders of User -- unchecked
+// 2 --> Get All orders of User -- Checked
     
-    router.get('/myOrders' ,authFetch, async(req, res, next) => {
+    router.get('/myOrders' , authFetch , catchAsyncErrors( async(req, res, next) => {
 
         const orders = await Order.find({ user: req.userId });
     
@@ -53,29 +53,30 @@ const ErrorHandler = require('../Utility/ErrorHandler');
             orders,
         });
     
-    });
+    }));
 
-// 3 --> Get Particular Order details both admin and user --unchecked
+// 3 --> Get Particular Order details both admin and user --checked
 
-    router.get('/orderDetails/:id', async (req, res, next) => {
+    router.get('/details/:id', catchAsyncErrors(async (req, res, next) => {
         const order = await Order.findById(req.params.id).populate(
-        "user",
-        "name email"
+            "user",
+            "name email"
         );
     
         if (!order) {
-        return next(new ErrorHandler("Order not found with this Id", 404));
+            return next(new ErrorHandler("Order not found with this Id", 404));
         }
     
         res.status(200).json({
-        success: true,
-        order,
+            success: true,
+            order,
         });
-    });
 
-// 4 --> Get All Orders -- Admin -- unchecked
+    }));
 
-    router.get('/allOrders', authFetch , checkAdmin , async(req , res, next)=>{
+// 4 --> Get All Orders -- Admin -- checked
+
+    router.get('/all', authFetch , checkAdmin , async(req , res, next)=>{
 
         const orders = await Order.find();
 
