@@ -1,4 +1,4 @@
-import React,{useEffect ,Fragment} from 'react'
+import React,{useEffect ,Fragment , useState} from 'react'
 import { getProductDetails } from '../../Slice/ProductSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../../StyleComponent/Loader/Loader';
@@ -7,12 +7,14 @@ import Carousel from 'nuka-carousel';
 import './ProductPage.css'
 import ReactStars from 'react-rating-stars-component';
 import ReviewCard from './ReviweCard';
+import { addTocart } from '../../Slice/CartSlice';
 
 const ProductPage = () => {
 
 
     const dispatch = useDispatch();
-    const { loading, error , productDetails } = useSelector((state) => state.products);
+    const { loading , productDetails } = useSelector((state) => state.products);
+    const { cartItem } = useSelector((state)=> state.cart);
     const { id } = useParams();
 
     //In backend AuthFetch i removed think and Attach it if  required
@@ -20,10 +22,32 @@ const ProductPage = () => {
         //In backend AuthFetch i removed think and Attach it if  required
           //In backend AuthFetch i removed think and Attach it if  required
 
+    const [quantity, setQuantity] = useState(1);
+
+    const increaseQuantity = () => {
+      
+      if (productDetails.stock <= quantity) 
+          return;
+
+      const qty = quantity + 1;
+      setQuantity(qty);
+    };
+  
+    const decreaseQuantity = () => {
+      if (1 >= quantity) return;
+  
+      const qty = quantity - 1;
+      setQuantity(qty);
+    };
+  
+
     useEffect(()=>{
-        console.log(id);
       dispatch(getProductDetails(id));
-    },[dispatch]);
+    },[dispatch,id]);
+
+    useEffect(()=>{
+      console.log(cartItem);
+    },[cartItem])
 
     const options = {
         edit:false,
@@ -33,6 +57,10 @@ const ProductPage = () => {
         size: 20
       }
     
+      const addToCartHandler = () => {
+        dispatch(addTocart({id, quantity}));
+        // alert.success("Item Added To Cart");
+      };
 
   return (
     <Fragment>
@@ -47,7 +75,7 @@ const ProductPage = () => {
                 <Carousel   
                     renderCenterLeftControls={({ previousSlide }) => null}
                     renderCenterRightControls={({ nextSlide }) => null}>
-                        {productDetails?.image?.map((pic) => {return <img src={pic.url} draggable="false" alt="" />})}
+                        {productDetails?.image?.map((pic , index) => {return <img key={index} src={pic.url} draggable="false" alt="" />})}
                 </Carousel>
             </div>  
           </div>
@@ -60,7 +88,6 @@ const ProductPage = () => {
             <div className="detailsBlock-2">
               <ReactStars {...options} />
               <span className="detailsBlock-2-span">
-                {" "}
                 ({productDetails.noOfReviews} Reviews)
               </span>
             </div>
@@ -68,12 +95,13 @@ const ProductPage = () => {
               <h1>{`₹${productDetails.price}`}</h1>
               <div className="detailsBlock-3-1">
                 <div className="detailsBlock-3-1-1">
-                  <button >-</button>
-                  <input readOnly type="number"  />
-                  <button >+</button>
+                  <button onClick={decreaseQuantity}>-</button>
+                  <input readOnly type="number" value={quantity} />
+                  <button onClick={increaseQuantity}>+</button>
                 </div>
                 <button
-                  disabled={productDetails.Stock < 1 ? true : false}
+                  disabled={productDetails.stock < 1 ? true : false}
+                  onClick={addToCartHandler}
                 >
                   Add to Cart
                 </button>
@@ -81,8 +109,8 @@ const ProductPage = () => {
 
               <p>
                 Status:
-                <b className={productDetails.Stock < 1 ? "redColor" : "greenColor"}>
-                  {productDetails.Stock < 1 ? "OutOfStock" : "InStock"}
+                <b className={productDetails.stock < 1 ? "redColor" : "greenColor"}>
+                  {productDetails.stock < 1 ? "OutOfStock" : "InStock"}
                 </b>
               </p>
             </div>

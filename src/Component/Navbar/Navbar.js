@@ -56,7 +56,7 @@ const Navbar = () => {
             
             <Link to={`/account`}><i className="fa-regular fa-user" style={{color:"#000000"}}></i></Link>
             <i className="fa-solid fa-heart" style={{color:"#FF004F"}}></i>
-            <i className="fa-brands fa-opencart" style={{color:"#000000"}}></i>
+            <Link to={`/cart`}><i className="fa-brands fa-opencart" style={{color:"#000000"}}></i></Link>
         </div>
     </div>
   )

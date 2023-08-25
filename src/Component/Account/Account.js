@@ -7,7 +7,8 @@ import { userLogOut } from '../../Slice/UserSlice'
 const Account = () => {
 
   const navigate = useNavigate();
-  const {user ,  loading , isAuthenticated} = useSelector((state)=> state.user);
+  // loading
+  const {user  , isAuthenticated} = useSelector((state)=> state.user);
   const dispatch = useDispatch();
   useEffect(()=>{
     if(!isAuthenticated){

@@ -20,14 +20,17 @@
 
 // export default Store;
 
-import { configureStore , applyMiddleware } from '@reduxjs/toolkit';
+// applyMiddleware
+import { configureStore } from '@reduxjs/toolkit';
 import productsReducer from './Slice/ProductSlice';
 import userReducer from './Slice/UserSlice';
+import cartReducer from './Slice/CartSlice';
 
 const Store = configureStore({
     reducer:{
         products : productsReducer,
-        user : userReducer
+        user : userReducer,
+        cart : cartReducer,
     }
 });
 

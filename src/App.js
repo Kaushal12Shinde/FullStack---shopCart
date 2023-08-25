@@ -8,6 +8,7 @@ import Account from './Component/Account/Account';
 import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { userLoad } from './Slice/UserSlice';
 import Store from './Store';
+import Cart from './Component/Cart/Cart';
 function App() {
 
   useEffect(()=>{
@@ -24,6 +25,7 @@ function App() {
          <Route exact path="/product/:id" element={<ProductPage/>}/>
          <Route  path="/products/:keyword" element={<Products/>}/>
          <Route exact path="/account" element={<Account/>}/>
+         <Route exact path="/cart" element={<Cart/>}/>
         </Routes>
       </div>
     </Router>
